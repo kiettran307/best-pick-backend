@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "API document for Kiet Template",
+      "description": "API document for Kiet Template",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "User",
+        "description": "User API"
+      }
+    ],
+    "schemes": ["http"],
+    "securityDefinitions":
+    {
+      "Bearer":{
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+      "/api/user/login": {
+        "post": {
+          "tags": ["User"],
+          "description": "Login into system",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "user login",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+              "200": {
+                "description": "return success message",
+                "schema": {
+                }
+              }
+            }
+        }
+      },
+      "/api/user/register": {
+        "post": {
+          "tags": ["User"],
+          "description": "Create new user in system",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "user that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+              "200": {
+                "description": "return success message",
+                "schema": {
+                }
+              }
+            }
+        }
+      },
+      "/api/users/all": {
+          "get": {
+            "tags": ["User"],
+            "description": "Create new user in system",
+            "produces": ["application/json"],
+            "parameters":[{
+              "name": "authorization",
+              "in": "header",
+              "required": true,
+              "type": "string"
+            }],
+            "responses": {
+                "200": {
+                  "description": "return success message",
+                  "schema": {
+                  }
+                },
+                "403":{"description": "You do not have necessary permissions for the resource"} 
+              }
+          }
+        },
+        "/api/users/current": {
+          "get": {
+            "tags": ["User"],
+            "description": "Get Current User",
+            "produces": ["application/json"],
+            "parameters":[{
+                "name": "authorization",
+                "in": "header",
+                "required": true,
+                "type": "string"
+              }],
+            "responses": {
+                "200": {
+                  "description": "return success message",
+                  "schema": {
+                  }
+                }
+              }
+          }
+        }
+    },
+    "definitions": {
+      "Login": {
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "1213@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        }
+      },
+      "User": {
+        "required": ["_id", "token", "email"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5e72e3aa227a1e69db68fde6"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "1213@gmail.com"
+          },
+          "token": {
+            "type": "string",
+            "example": "JWT"
+          }
+        }
+      }
+    }
+  }
+  
